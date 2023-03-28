@@ -1,5 +1,5 @@
 # Setup
-FROM ubuntu:20.04 AS setup
+FROM ubuntu:22.04 AS setup
 
 WORKDIR /app
 
@@ -44,13 +44,13 @@ COPY FFmpeg FFmpeg
 COPY deps deps
 COPY scripts scripts
 
-# Build scripts
-FROM setup AS build
-RUN ./scripts/build-deps.sh
-RUN ./scripts/configure.sh
-RUN ./scripts/build.sh
-RUN ./scripts/optimize.sh
+# # Build scripts
+# FROM setup AS build
+# RUN ./scripts/build-deps.sh
+# RUN ./scripts/configure.sh
+# RUN ./scripts/build.sh
+# RUN ./scripts/optimize.sh
 
-# Export
-FROM scratch AS export
-COPY --from=build /app/ffmpeg.wasm /app/ffprobe.wasm ./
+# # Export
+# FROM scratch AS export
+# COPY --from=build /app/ffmpeg.wasm /app/ffprobe.wasm ./

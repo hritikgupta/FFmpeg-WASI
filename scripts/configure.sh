@@ -39,10 +39,10 @@ FFMPEG_CONFIG_FLAGS_BASE=(
 mkdir -p build
 
 cd FFmpeg
-MAX_MEMORY=131072000
+MAX_MEMORY=2510720000
 ./configure ${FFMPEG_CONFIG_FLAGS_BASE[@]} \
---extra-cflags="-pthread -target wasm32-wasi-pthread -ftls-model=local-exec -I../build/include" \
---extra-ldflags="-pthread -target wasm32-wasi-pthread -Wl,--max-memory=${MAX_MEMORY} -Wl,--import-memory -L../build/lib"
+--extra-cflags="-pthread -target wasm32-wasi-threads -ftls-model=local-exec -z stack-size=32768 -I../build/include" \
+--extra-ldflags="-pthread -target wasm32-wasi-threads -Wl,--import-memory,--export-memory,--max-memory=${MAX_MEMORY} -Wl,--export=__heap_base -Wl,--export=__data_end -Wl,--shared-memory,--max-memory=${MAX_MEMORY} -L../build/lib"
 
 make -n |
   sed 's/clang /clang -D_WASI_EMULATED_PROCESS_CLOCKS -lwasi-emulated-process-clocks /g' |

@@ -12,7 +12,7 @@ CC=../../wasi-sdk/bin/clang \
     --enable-static \
     --disable-cli \
     --disable-asm \
-    --extra-cflags="-pthread -target wasm32-wasi-pthread -D_WASI_EMULATED_SIGNAL" \
+    --extra-cflags="-pthread -target wasm32-wasi-threads -D_WASI_EMULATED_SIGNAL" \
     --extra-ldflags="-lc -lwasi-emulated-signal"
 sed -i 's/#define HAVE_MALLOC_H 1/#define HAVE_MALLOC_H 0/g' config.h
 make install-lib-static
